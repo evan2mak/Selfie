@@ -114,5 +114,4 @@ class HomeFragment : Fragment(), SensorEventListener {
             // Handle the error e.g. by showing a message to the user
         }
     }
-
 }
