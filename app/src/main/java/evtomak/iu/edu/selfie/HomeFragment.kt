@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +21,7 @@ class HomeFragment : Fragment(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
     private var lastUpdate: Long = 0
-    private val SHAKE_THRESHOLD = 1500 // Adjust this value based on your shake sensitivity preference
+    private val SHAKE_THRESHOLD = 1000 // Adjust this value based on your shake sensitivity preference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +29,7 @@ class HomeFragment : Fragment(), SensorEventListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         imageRecyclerView = view.findViewById(R.id.imageRecyclerView)
+        val logoutButton = view.findViewById<Button>(R.id.logoutButton)
 
         // Initialize sensor
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -41,6 +43,14 @@ class HomeFragment : Fragment(), SensorEventListener {
 
         // Fetch images from Firebase Storage
         fetchImagesFromFirebaseStorage(imageAdapter)
+
+        logoutButton.setOnClickListener {
+            // Call the logout function from UserRepository
+            UserRepositorySingleton.getInstance().logout()
+            // Navigate to the UserScreenFragment
+            findNavController().navigate(R.id.action_homeFragment_to_userScreenFragment)
+        }
+
 
         return view
     }

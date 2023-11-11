@@ -31,6 +31,10 @@
             android:id="@+id/action_homeFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
 
+        <action
+            android:id="@+id/action_homeFragment_to_userScreenFragment"
+            app:destination="@id/userScreenFragment" />
+
     </fragment>
 
     <!-- Define your CameraFragment here -->

@@ -19,22 +19,23 @@ class MainActivity : AppCompatActivity() {
         // Initialize Firebase and enable offline data persistence.
         FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         auth = FirebaseAuth.getInstance()
-
-        // Initialize the NavController for navigation.
         navController = findNavController(R.id.nav_host_fragment)
-
-        // Initialize UserRepository using the Singleton pattern.
         userRepository = UserRepositorySingleton.getInstance()
 
-        if (auth.currentUser == null) {
-            // User is not authenticated, navigate to UserScreen
-            navController.navigate(R.id.userScreenFragment)
-        }
-        else {
-            // User is authenticated, navigate to HomeFragment
-            navController.navigate(R.id.homeFragment)
+        // Set up the FirebaseAuth.AuthStateListener to respond to changes in the user's sign-in state
+        auth.addAuthStateListener { firebaseAuth ->
+            val user = firebaseAuth.currentUser
+            if (user == null) {
+                // User is not authenticated, navigate to UserScreen
+                navController.navigate(R.id.userScreenFragment)
+            }
+            else {
+                // User is authenticated, navigate to HomeFragment
+                navController.navigate(R.id.homeFragment)
+            }
         }
     }
 }
+
 
 
