@@ -1,11 +1,6 @@
 package evtomak.iu.edu.selfie
 
 import android.content.ContentValues.TAG
-import android.content.Context.SENSOR_SERVICE
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -23,16 +18,11 @@ import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 import java.util.concurrent.ExecutorService
 
-
-class CameraFragment : Fragment(), SensorEventListener {
+class CameraFragment : Fragment() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var outputDirectory: File
     private lateinit var previewView: PreviewView
     private lateinit var imageCapture: ImageCapture
-    private lateinit var sensorManager: SensorManager
-    private var accelerometer: Sensor? = null
-    private var lastUpdate: Long = 0
-    private val SHAKE_THRESHOLD = 400
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,10 +37,6 @@ class CameraFragment : Fragment(), SensorEventListener {
             captureImage()
         }
 
-        // Initialize sensor
-        sensorManager = requireActivity().getSystemService(SENSOR_SERVICE) as SensorManager
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-
         startCamera()
         return view
     }
@@ -58,31 +44,6 @@ class CameraFragment : Fragment(), SensorEventListener {
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor.shutdown()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        sensorManager.unregisterListener(this)
-    }
-
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
-            val curTime = System.currentTimeMillis()
-            if (curTime - lastUpdate > SHAKE_THRESHOLD) {
-                lastUpdate = curTime
-                // Shake detected, navigate to the CameraFragment
-                findNavController().navigate(R.id.action_homeFragment_to_cameraFragment)
-            }
-        }
-    }
-
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        // Not used
     }
 
     private fun startCamera() {
@@ -105,8 +66,7 @@ class CameraFragment : Fragment(), SensorEventListener {
 
             try {
                 cameraProvider.unbindAll()
-
-                val camera = cameraProvider.bindToLifecycle(
+                cameraProvider.bindToLifecycle(
                     this, cameraSelector, preview, imageCapture
                 )
 
@@ -163,4 +123,3 @@ class CameraFragment : Fragment(), SensorEventListener {
         }
     }
 }
-

@@ -2,26 +2,36 @@ package evtomak.iu.edu.selfie
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth // FirebaseAuth instance for managing user authentication.
+    private lateinit var navController: NavController // NavController for managing app navigation.
+    private lateinit var userRepository: UserRepository // UserRepository for managing user data.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Check if the user is authenticated
-        val auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
+        // Initialize Firebase and enable offline data persistence.
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+        auth = FirebaseAuth.getInstance()
 
-        if (currentUser == null) {
+        // Initialize the NavController for navigation.
+        navController = findNavController(R.id.nav_host_fragment)
+
+        // Initialize UserRepository using the Singleton pattern.
+        userRepository = UserRepositorySingleton.getInstance()
+
+        if (auth.currentUser == null) {
             // User is not authenticated, navigate to UserScreen
-            val navController = findNavController(R.id.nav_host_fragment)
             navController.navigate(R.id.userScreenFragment)
-        } else {
+        }
+        else {
             // User is authenticated, navigate to HomeFragment
-            val navController = findNavController(R.id.nav_host_fragment)
             navController.navigate(R.id.homeFragment)
         }
     }
