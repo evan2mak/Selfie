@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "934609916766",
+    "project_id": "selfie-edf24",
+    "storage_bucket": "selfie-edf24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934609916766:android:b5965fabc8a8c6780a35cf",
+        "android_client_info": {
+          "package_name": "evtomak.iu.edu.selfie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF1AvufuePrdgyGx6rNMr8n1voBoKa0AA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
