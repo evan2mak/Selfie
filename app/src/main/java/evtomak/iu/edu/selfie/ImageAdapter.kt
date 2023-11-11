@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class ImageAdapter(var images: List<String>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class ImageAdapter(var images: MutableList<String>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.image_view)
@@ -25,4 +25,10 @@ class ImageAdapter(var images: List<String>) : RecyclerView.Adapter<ImageAdapter
     }
 
     override fun getItemCount(): Int = images.size
+
+    fun updateImages(newImages: List<String>) {
+        images.clear()
+        images.addAll(newImages)
+        notifyDataSetChanged()
+    }
 }

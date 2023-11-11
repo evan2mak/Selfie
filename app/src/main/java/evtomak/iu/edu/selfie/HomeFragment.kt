@@ -1,11 +1,13 @@
 package evtomak.iu.edu.selfie
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -99,13 +101,18 @@ class HomeFragment : Fragment(), SensorEventListener {
             val imageUrls = mutableListOf<String>()
             for (item in result.items) {
                 item.downloadUrl.addOnSuccessListener { uri ->
+                    Log.d(TAG, "Fetched image URL: $uri")
                     imageUrls.add(uri.toString())
-                    imageAdapter.images = imageUrls // Update the adapter's data set
-                    imageAdapter.notifyDataSetChanged()
+                    // Update the adapter's data set on the main thread
+                    activity?.runOnUiThread {
+                        imageAdapter.updateImages(imageUrls)
+                    }
                 }
             }
         }.addOnFailureListener { exception ->
-            // Handle failure
+            Log.e(TAG, "Error fetching images", exception)
+            // Handle the error e.g. by showing a message to the user
         }
     }
+
 }
