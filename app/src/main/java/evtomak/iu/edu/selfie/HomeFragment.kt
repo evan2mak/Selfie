@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 
 class HomeFragment : Fragment(), SensorEventListener {
@@ -91,14 +92,16 @@ class HomeFragment : Fragment(), SensorEventListener {
     }
 
     private fun fetchImagesFromFirebaseStorage(imageAdapter: ImageAdapter) {
-        val storageReference = FirebaseStorage.getInstance().reference.child("selfies")
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val storageReference = FirebaseStorage.getInstance().reference.child("selfies/$userId")
 
         storageReference.listAll().addOnSuccessListener { result ->
             val imageUrls = mutableListOf<String>()
             for (item in result.items) {
                 item.downloadUrl.addOnSuccessListener { uri ->
                     imageUrls.add(uri.toString())
-                    imageAdapter.notifyDataSetChanged() // Update the adapter
+                    imageAdapter.images = imageUrls // Update the adapter's data set
+                    imageAdapter.notifyDataSetChanged()
                 }
             }
         }.addOnFailureListener { exception ->
