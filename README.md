@@ -25,6 +25,7 @@ The functionality is described in more detail below:
 [X] The user can scroll to see all of their selfies
 
 [X] If the user would like to take a new selfie, they must shake the device (simulated in the gif below) to be transported to the camera fragment.
+![qemu-system-x86_64_Rl1EMJGYwF](https://github.com/evan2mak/Selfie/assets/128643914/c5e5cc23-3b74-48ae-aa97-0b48a590be6f)
 
 [X] If the user would like to logout/sign out, they can click the logout button to get back to the user screen.
 
