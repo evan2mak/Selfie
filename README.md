@@ -234,3 +234,10 @@ Logs out the current authenticated user.
 
 Factory class for creating instances of UserViewModel.
 
+## Video Walkthroughs
+
+Here's a walkthrough of implemented user stories:
+
+This clip shows email/password validation edge cases.
+
+![studio64_AH3GhLszgZ](https://github.com/evan2mak/Notes2/assets/128643914/bfb24855-dd2c-48cc-bdc7-78030e977dfe)
