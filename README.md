@@ -240,4 +240,32 @@ Here's a walkthrough of implemented user stories:
 
 This clip shows email/password validation edge cases.
 
-![studio64_AH3GhLszgZ](https://github.com/evan2mak/Notes2/assets/128643914/bfb24855-dd2c-48cc-bdc7-78030e977dfe)
+This clip shows the creation of a first user account. It also shows how to simulate a shake to get to the camera fragment as well as the ability to take a selfie. This clip also shows the display of selfies. 
+
+This clip shows how selfies can be opened full-screen as well as how to logout.
+
+This clip shows the creation of a second user account. This shows that the selfies are correctly assigned to only the users that take them.
+
+## Firebase Console Screenshots
+
+Here are some screenshots of the firebase console after the previous video walkthroughs.
+
+## Notes
+
+By far the hardest part of this project was figuring out how to first get the camera permissions as well as the functionality of the camera. I had a lot of trouble displaying the images after taking a selfie as well. Storage wasn't too bad. I also had trouble opening an image in the full view.
+
+## License
+
+    Copyright 2023 Evan Tomak.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express implied.
+
+    See the License for the specific language governing permissions and
+    limitations under the License.
