@@ -259,6 +259,15 @@ This clip shows the creation of a second user account. This shows that the selfi
 
 Here are some screenshots of the firebase console after the previous video walkthroughs.
 
+Selfies of first user in storage:
+
+![Screenshot (280)](https://github.com/evan2mak/Selfie/assets/128643914/c9fc3ee4-4126-4477-9a96-e8bbe47f9505)
+
+User accounts signed up in authentication:
+
+![Screenshot (281)](https://github.com/evan2mak/Selfie/assets/128643914/4969efd9-7da6-4138-8a83-749cac2a7b7c)
+
+
 ## Notes
 
 By far the hardest part of this project was figuring out how to first get the camera permissions as well as the functionality of the camera. I had a lot of trouble displaying the images after taking a selfie as well. Storage wasn't too bad. I also had trouble opening an image in the full view.
