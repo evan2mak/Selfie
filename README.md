@@ -24,3 +24,17 @@ The functionality is described in more detail below:
 
 [X] The user can scroll to see all of their selfies
 
+[X] If the user would like to take a new selfie, they must shake the device (simulated in the gif below) to be transported to the camera fragment.
+
+[X] If the user would like to logout/sign out, they can click the logout button to get back to the user screen.
+
+## Camera Fragment
+
+[X] This is where the user can take a selfie.
+
+[X] When the user clicks the capture button, a selfie will be taken and stored in the home fragment. The user will automatically be taken back to the home fragment to see their selfie(s). 
+
+## 
+
+The following functions/extensions are implemented:
+
