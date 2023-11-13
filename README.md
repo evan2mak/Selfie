@@ -248,8 +248,12 @@ This clip shows the creation of a first user account. It also shows how to simul
 
 
 This clip shows the display of multiple selfies, opening selfies full-screen, and how to logout.
+![My Video-1](https://github.com/evan2mak/Selfie/assets/128643914/4bfbb38f-3a7d-45ce-82aa-594afddde1ab)
+
 
 This clip shows the creation of a second user account. This shows that the selfies are correctly assigned to only the users that take them.
+![My Video-2](https://github.com/evan2mak/Selfie/assets/128643914/87a4c232-ff18-446d-9b8b-95ae239aa41e)
+
 
 ## Firebase Console Screenshots
 
