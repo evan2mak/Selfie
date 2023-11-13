@@ -244,6 +244,7 @@ This clip shows email/password validation edge cases.
 
 This clip shows the creation of a first user account. It also shows how to simulate a shake to get to the camera fragment as well as the ability to take a selfie. 
 ![qemu-system-x86_64_Rl1EMJGYwF](https://github.com/evan2mak/Selfie/assets/128643914/0e05b18b-f5d9-4da9-a592-91c4fbda0f77)
+![My Video](https://github.com/evan2mak/Selfie/assets/128643914/e20c2e25-88eb-4c31-9b04-3bda1ee78745)
 
 
 This clip shows the display of multiple selfies, opening selfies full-screen, and how to logout.
