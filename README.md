@@ -38,3 +38,54 @@ The functionality is described in more detail below:
 
 The following functions/extensions are implemented:
 
+## CameraFragment
+
+Manages the camera operations and interfaces with Firebase for image storage.
+
+onCreateView: 
+
+Inflates the layout for this fragment.
+
+onViewCreated: 
+
+Sets up the camera and capture button post view creation.
+
+onDestroyView: 
+
+Shuts down the camera executor on view destruction.
+
+startCamera: 
+
+Initializes the camera and binds it to the lifecycle.
+
+allPermissionsGranted: 
+
+Checks if camera permission is granted.
+
+getOutputDirectory: 
+
+Determines the output directory for storing photos.
+
+captureImage: 
+
+Captures an image and saves it to a file.
+
+uploadImageToFirebaseStorage: 
+
+Uploads the captured image to Firebase Storage.
+
+## FullscreenImageFragment
+
+Displays a full-screen image using Glide.
+
+onCreate: 
+
+Retrieves the image URI passed in the fragment's arguments.
+
+onCreateView: 
+
+Inflates the layout and sets up the ImageView with the image URI.
+
+
+
+
