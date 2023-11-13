@@ -19,13 +19,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 
-class HomeFragment : Fragment(), SensorEventListener {
+// HomeFragment: Displays user's images and handles shake gestures for navigation.
+class HomeFragment : Fragment(), SensorEventListener, ImageAdapter.OnImageClickListener {
     private lateinit var imageRecyclerView: RecyclerView
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
     private var lastUpdate: Long = 0
-    private val SHAKE_THRESHOLD = 1000 // Adjust this value based on your shake sensitivity preference
+    private val SHAKE_THRESHOLD = 1000
 
+    // onCreateView: Sets up the UI elements and fetches images from Firebase Storage.
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,44 +36,40 @@ class HomeFragment : Fragment(), SensorEventListener {
         imageRecyclerView = view.findViewById(R.id.imageRecyclerView)
         val logoutButton = view.findViewById<Button>(R.id.logoutButton)
 
-        // Initialize sensor
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-        // Set up the RecyclerView with the adapter
         val images = mutableListOf<String>()
-        val imageAdapter = ImageAdapter(images)
+        val imageAdapter = ImageAdapter(images, this)
         imageRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         imageRecyclerView.adapter = imageAdapter
 
-        // Fetch images from Firebase Storage
         fetchImagesFromFirebaseStorage(imageAdapter)
 
         logoutButton.setOnClickListener {
-            // Call the logout function from UserRepository
             UserRepositorySingleton.getInstance().logout()
-            // Navigate to the UserScreenFragment
             findNavController().navigate(R.id.action_homeFragment_to_userScreenFragment)
         }
-
 
         return view
     }
 
+    // onResume: Registers the sensor event listener when the fragment resumes.
     override fun onResume() {
         super.onResume()
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
     }
 
+    // onPause: Unregisters the sensor event listener when the fragment pauses.
     override fun onPause() {
         super.onPause()
         sensorManager.unregisterListener(this)
     }
 
+    // onSensorChanged: Detects shake gesture and navigates to the camera fragment.
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
             val curTime = System.currentTimeMillis()
-            // Check for a shake
             if ((curTime - lastUpdate) > 100) {
                 val diffTime = curTime - lastUpdate
                 lastUpdate = curTime
@@ -82,17 +80,18 @@ class HomeFragment : Fragment(), SensorEventListener {
 
                 val speed = Math.sqrt((x * x + y * y + z * z).toDouble()) / diffTime * 10000
                 if (speed > SHAKE_THRESHOLD) {
-                    // Shake detected, navigate to the CameraFragment
                     findNavController().navigate(R.id.action_homeFragment_to_cameraFragment)
                 }
             }
         }
     }
 
+    // onAccuracyChanged: Required override for SensorEventListener, not used.
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         // Not used
     }
 
+    // fetchImagesFromFirebaseStorage: Fetches images from Firebase and updates the RecyclerView.
     private fun fetchImagesFromFirebaseStorage(imageAdapter: ImageAdapter) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val storageReference = FirebaseStorage.getInstance().reference.child("selfies/$userId")
@@ -103,7 +102,6 @@ class HomeFragment : Fragment(), SensorEventListener {
                 item.downloadUrl.addOnSuccessListener { uri ->
                     Log.d(TAG, "Fetched image URL: $uri")
                     imageUrls.add(uri.toString())
-                    // Update the adapter's data set on the main thread
                     activity?.runOnUiThread {
                         imageAdapter.updateImages(imageUrls)
                     }
@@ -111,7 +109,12 @@ class HomeFragment : Fragment(), SensorEventListener {
             }
         }.addOnFailureListener { exception ->
             Log.e(TAG, "Error fetching images", exception)
-            // Handle the error e.g. by showing a message to the user
         }
+    }
+
+    // onImageClick: Navigates to the FullscreenImageFragment with the clicked image URI.
+    override fun onImageClick(imageUri: String) {
+        val action = HomeFragmentDirections.actionHomeFragmentToFullscreenImageFragment(imageUri)
+        findNavController().navigate(action)
     }
 }

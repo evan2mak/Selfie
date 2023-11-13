@@ -1,6 +1,5 @@
 package evtomak.iu.edu.selfie
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,12 +13,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 
+// UserScreen: Handles user authentication operations like sign in, sign up, and sign out.
 class UserScreen : Fragment() {
     private lateinit var userViewModel: UserViewModel
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var auth: FirebaseAuth
 
+    // onCreateView: Inflates the layout for this fragment and initializes Firebase Auth.
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,13 +30,13 @@ class UserScreen : Fragment() {
         passwordEditText = view.findViewById(R.id.passwordEditText)
         auth = FirebaseAuth.getInstance()
 
-        // Initialize ViewModel
         val factory = UserViewModelFactory(UserRepositorySingleton.getInstance())
         userViewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
 
         return view
     }
 
+    // onViewCreated: Sets up UI components and observes ViewModel for navigation and errors.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,7 +48,6 @@ class UserScreen : Fragment() {
 
         userViewModel.navigateToHomeScreen.observe(viewLifecycleOwner) { shouldNavigate ->
             if (shouldNavigate) {
-                // Trigger the navigation action to go to the HomeFragment
                 findNavController().navigate(R.id.action_userScreenFragment_to_homeFragment)
             }
         }
@@ -59,6 +59,7 @@ class UserScreen : Fragment() {
         }
     }
 
+    // onSignInClicked: Handles the sign-in process.
     private fun onSignInClicked() {
         val email = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString().trim()
@@ -71,6 +72,7 @@ class UserScreen : Fragment() {
         userViewModel.login(email, password)
     }
 
+    // onSignUpClicked: Handles the sign-up process.
     private fun onSignUpClicked() {
         val email = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString().trim()
@@ -83,6 +85,7 @@ class UserScreen : Fragment() {
         userViewModel.register(email, password)
     }
 
+    // onSignOutClicked: Handles the sign-out process.
     private fun onSignOutClicked() {
         userViewModel.logout()
         Toast.makeText(context, "Signed out successfully.", Toast.LENGTH_SHORT).show()

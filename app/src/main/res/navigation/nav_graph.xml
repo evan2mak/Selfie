@@ -11,14 +11,11 @@
         android:label="User Screen"
         tools:layout="@layout/fragment_user_screen">
 
-        <!-- Add an action to navigate to the HomeFragment upon successful login -->
         <action
             android:id="@+id/action_userScreenFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
 
     </fragment>
-
-    <!-- Define your HomeFragment here -->
 
     <fragment
         android:id="@+id/homeFragment"
@@ -26,7 +23,6 @@
         android:label="Home Fragment"
         tools:layout="@layout/fragment_home">
 
-        <!-- Add an action to navigate to the CameraFragment when shaking the phone -->
         <action
             android:id="@+id/action_homeFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
@@ -35,9 +31,20 @@
             android:id="@+id/action_homeFragment_to_userScreenFragment"
             app:destination="@id/userScreenFragment" />
 
+        <action
+            android:id="@+id/action_homeFragment_to_fullscreenImageFragment"
+            app:destination="@id/fullscreenImageFragment" />
+
     </fragment>
 
-    <!-- Define your CameraFragment here -->
+    <fragment
+        android:id="@+id/fullscreenImageFragment"
+        android:name="evtomak.iu.edu.selfie.FullscreenImageFragment"
+        android:label="Fullscreen Image Fragment">
+        <argument
+            android:name="imageUri"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/cameraFragment"
@@ -45,12 +52,10 @@
         android:label="Camera Fragment"
         tools:layout="@layout/fragment_camera">
 
-        <!-- Add an action to navigate back to the HomeFragment after taking a picture -->
         <action
             android:id="@+id/action_cameraFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
-
     </fragment>
 </navigation>

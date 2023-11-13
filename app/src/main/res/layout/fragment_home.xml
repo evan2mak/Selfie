@@ -14,7 +14,6 @@
         android:text="Logout" />
 
 
-    <!-- Add a RecyclerView to display images -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imageRecyclerView"
         android:layout_width="match_parent"

@@ -4,13 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Add the PreviewView for displaying the camera preview -->
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Add a Capture Button -->
     <Button
         android:id="@+id/captureButton"
         android:layout_width="wrap_content"

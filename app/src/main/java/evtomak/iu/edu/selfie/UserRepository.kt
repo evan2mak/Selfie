@@ -13,7 +13,7 @@ class UserRepository {
     private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> get() = _user
 
-    // Initialize the user LiveData based on the current Firebase authenticated user.
+    // Initializes the user LiveData based on the current Firebase authenticated user.
     init {
         val currentUser = firebaseAuth.currentUser
         if (currentUser != null) {
