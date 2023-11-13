@@ -242,9 +242,11 @@ Here's a walkthrough of implemented user stories:
 This clip shows email/password validation edge cases.
 ![studio64_BdS8aGyJPr](https://github.com/evan2mak/Selfie/assets/128643914/e0ff9641-7c53-4521-99a6-6f354d0ef715)
 
-This clip shows the creation of a first user account. It also shows how to simulate a shake to get to the camera fragment as well as the ability to take a selfie. This clip also shows the display of selfies. 
+This clip shows the creation of a first user account. It also shows how to simulate a shake to get to the camera fragment as well as the ability to take a selfie. 
+![qemu-system-x86_64_Rl1EMJGYwF](https://github.com/evan2mak/Selfie/assets/128643914/0e05b18b-f5d9-4da9-a592-91c4fbda0f77)
 
-This clip shows how selfies can be opened full-screen as well as how to logout.
+
+This clip shows the display of multiple selfies, opening selfies full-screen, and how to logout.
 
 This clip shows the creation of a second user account. This shows that the selfies are correctly assigned to only the users that take them.
 
